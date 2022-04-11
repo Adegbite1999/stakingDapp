@@ -1,7 +1,6 @@
 import Connected from "../Connected/Connected"
 import Styles from "./Header.module.css"
 const Header = ({userInfo, connected, connectWallet}) => {
-  console.log(connected)
   return (
     <div className={Styles.root}>
         <span className={Styles.logo}>STAKING<span className={Styles.logo2}> CONTRACT</span></span>

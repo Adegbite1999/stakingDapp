@@ -4,7 +4,7 @@ import Card from './Card/Card'
 import Styles from './MyStake.module.css'
 
 
-const MyStake = () => {
+const MyStake = ({stakeAmount,stakeHandler,onChangeInputHandler, stakeInput, withdrawInput, withdrawAmount }) => {
   
   return (
     <div className={Styles.root}>
@@ -21,9 +21,11 @@ const MyStake = () => {
               cardValue = {'--:--'}
             />
           </div>
-          <form  className={Styles.form} >
+          <form onSubmit={stakeHandler} className={Styles.form} >
             <input 
               type = "number" 
+              value={stakeInput}
+              onChange={onChangeInputHandler}
               placeholder="Amount to stake" 
               className={Styles.input}
               id = "stake"
@@ -36,9 +38,11 @@ const MyStake = () => {
           <form  className={Styles.form} >
             <input 
               type = "number" 
-              placeholder="Amount to unstake" 
+              placeholder="Amount to withdraw" 
+              value={withdrawInput}
+              onChange={onChangeInputHandler}
               className={Styles.input}
-              id = "unstake"
+              id = "withdraw"
             />
             <button type="submit"
             className={clsx({[Styles.unstake_btn]: true, [Styles.btn_diabled]:false})}

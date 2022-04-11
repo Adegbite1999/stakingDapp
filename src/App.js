@@ -8,7 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import abi from "./utils/web3/abi.json";
 import token from "./utils/web3/tokenAbi.json";
-import { Contract, ethers } from 'ethers';
+import { Contract, ethers,utils } from 'ethers';
 const contractAddress = "0x40960D06132BBCBAA3FfA1B77d10e57C8578eF95";
 const tokenAddress = "0xD0998d596E49F827fDBeb4f40aF29013354969B9"
 
@@ -19,10 +19,12 @@ const tokenAddress = "0xD0998d596E49F827fDBeb4f40aF29013354969B9"
 
 function App() {
   //a flag to check status of user
-  const [connected, setConnected] = useState(false)
+  const [connected, setConnected] = useState(false) 
+  const [stakeInput, setStakeInput] = useState("")
+  const [stakeAmount, setStakeAmount] = useState(null)
+  const [withdrawInput, setWithdrawInput] = useState("")
+  const [withdrawAmount, setWithdrawAmount] = useState(null)
 
-console.log(connected)
-  // user details i.e ETH balance && brt balance && address
 
   const [userInfo, setUserInfo] = useState({
     eth_balance: 0,
@@ -152,16 +154,44 @@ const connectWallet = async() =>{
   }
 }
 
-// const connectWallet = async () => {
-//   if(!!window.ethereum || !!window.web3) {
-//     await window.ethereum.request({method: "eth_requestAccounts"})
-//   } else {
-//     alert("please use an etherum enabled browser");
-//   }
-// }
+const stakeHandler = async(e) =>{
+    e.preventDefault()
+    if(stakeInput ==="") toast("Input field cannot be empty")
+    if(stakeInput < 0) toast("Yo cannot stake less than 0 BRT")
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer =provider.getSigner()
+    const TokenContractInstance = new Contract(tokenAddress,token,signer)
+    const BRTContractInstance = new Contract(contractAddress,abi,signer)
+    const weiValue = utils.parseEther(stakeInput)
+    await TokenContractInstance.approve(contractAddress,weiValue)
+    await BRTContractInstance.stakeToken(weiValue)
+
+    const accounts = await provider.listAccounts();
+    if(!accounts.length) return
+    const accountDetails = await getAccountDetails(accounts[0])
+      setUserInfo({
+        eth_balance: accountDetails.userEthBal,
+        token_balance: accountDetails.userBRTBalance,
+        address: accounts[0]
+      })
+      setConnected(true)
+      toast.success(`You've successfully staked ${weiValue}` )
+      setStakeInput("")
+}
 
 
-
+// inputChange
+const onChangeInputHandler = ({target}) =>{
+  switch (target.id) {
+    case "stake":
+      setStakeInput(target.value)
+      break;
+      case "withdraw":
+        setWithdrawInput(target.value)
+    default:
+      break;
+  }
+} 
 
 
   return (
@@ -174,6 +204,13 @@ const connectWallet = async() =>{
       />
       <main className='main'>
         <MyStake
+        stakeInput={stakeInput}
+        onChangeInputHandler={onChangeInputHandler}
+        stakeAmount={stakeAmount}
+        withdrawInput={withdrawInput}
+        withdrawAmount={withdrawAmount}
+        stakeHandler={stakeHandler}
+
         />
         <StakeHistory
         />
