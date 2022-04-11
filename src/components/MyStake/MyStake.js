@@ -14,11 +14,11 @@ const MyStake = () => {
           <div className={Styles.card_container}>
             <Card 
               cardKey="Total Staked"
-              cardValue = {'200 BRT'}
+              cardValue = {'--:--'}
             />
             <Card 
               cardKey="Total Reward"
-              cardValue = {'200 BRT'}
+              cardValue = {'--:--'}
             />
           </div>
           <form  className={Styles.form} >
