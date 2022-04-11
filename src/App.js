@@ -24,7 +24,7 @@ function App() {
   const [stakeAmount, setStakeAmount] = useState(null)
   const [withdrawInput, setWithdrawInput] = useState("")
   const [withdrawAmount, setWithdrawAmount] = useState(null)
-
+console.log(stakeAmount)
 
   const [userInfo, setUserInfo] = useState({
     eth_balance: 0,
@@ -133,6 +133,7 @@ useEffect(() => {
   window.ethereum.on("connect", eagerConnect)
   window.ethereum.on("accountsChanged", handleAccountChanged)
   window.ethereum.on('chainChanged', handleChainChanged);
+  getStakeAmount()
 },
 // eslint-disable-next-line
 [])
@@ -180,6 +181,18 @@ const stakeHandler = async(e) =>{
 }
 
 
+// getStakeAmount
+  const getStakeAmount  = async( ) => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner()
+    const BRTContractInstance = await new Contract(contractAddress,abi,signer)
+    const stake = await BRTContractInstance.getBalance()
+    const formatunit = utils.formatUnits(stake,18)
+    setStakeAmount(formatunit)
+  }
+
+
+
 // inputChange
 const onChangeInputHandler = ({target}) =>{
   switch (target.id) {
@@ -188,6 +201,7 @@ const onChangeInputHandler = ({target}) =>{
       break;
       case "withdraw":
         setWithdrawInput(target.value)
+        break;
     default:
       break;
   }

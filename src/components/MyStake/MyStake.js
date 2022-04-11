@@ -14,7 +14,7 @@ const MyStake = ({stakeAmount,stakeHandler,onChangeInputHandler, stakeInput, wit
           <div className={Styles.card_container}>
             <Card 
               cardKey="Total Staked"
-              cardValue = {'--:--'}
+              cardValue = {stakeAmount}
             />
             <Card 
               cardKey="Total Reward"
