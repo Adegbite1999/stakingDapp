@@ -3,6 +3,7 @@
     padding: 2rem;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .logo {
@@ -13,7 +14,7 @@
 
 .logo2 {
     color: rgb(8, 153, 107);
-    font-size: 2.1rem;
+    font-size: 1.8rem;
 }
 
 .connect_btn {

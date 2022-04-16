@@ -60,15 +60,55 @@
 .card{
     background: #fafafa;
     margin-top: 2rem;
-    max-width: 50%;
+    max-width: 100%;
     border-radius: 10px;
     padding: 1rem .75rem;
 }
 .cc{
     margin-bottom: 1rem;
+    font-size: 1.2rem;
 }
 
 .para{
     max-width: 100%;
     word-break: break-all;
+    color: #c5c5c5;
+}
+
+.md{
+    display: flex;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.clear{
+    display: flex;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #b5b5b5;
+    cursor: pointer;
+}
+
+.clear:hover{
+    outline: none;
+}
+.cc > h4{
+ color: #443838;
+font-size: 1.2rem;
+}
+.bttn{
+    border: none;
+    padding: .75rem;
+    background-color: #443838;
+    color: #f9f9f9;
+    cursor: pointer;
+    margin-top: .5rem;
+    border-radius: 10px;
+
 }
