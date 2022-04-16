@@ -4,7 +4,7 @@ const Header = ({userInfo, connected, connectWallet}) => {
   return (
     <div className={Styles.root}>
         <span className={Styles.logo}>STAKING<span className={Styles.logo2}> CONTRACT</span></span>
-        <div className="">
+        <div className="xx">
           { connected? <Connected 
             token_balance={userInfo.token_balance}
             eth_balance={userInfo.eth_balance}

@@ -8,3 +8,21 @@
 body {
   font-family: sans-serif;
 }
+
+/* @media screen and (max-width: 480px) {
+.xx{
+  position: fixed;
+  background: red;
+  bottom: 0;
+  left: 0;
+}
+
+.main{
+  padding: 0 2rem;
+}
+.card_container{
+  display: ;
+}
+  
+
+} */
